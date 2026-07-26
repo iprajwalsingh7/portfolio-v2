@@ -24,9 +24,15 @@ create index idx_contact_created on contact_message (created_at desc);
 create index idx_contact_email   on contact_message (email);
 
 -- Per-day unique view totals.
+--
+-- The column is `view_day`, not `day`: DAY is a reserved word in H2 2.x (and in
+-- SQL:2016 generally). Hibernate quotes reserved identifiers in the SQL it
+-- generates, so JPQL keeps working either way — but the hand-written native
+-- upserts below do not get that treatment, and they fail to parse. Renaming is
+-- the fix; quoting everywhere would only postpone the next occurrence.
 create table daily_views (
-    day   date   primary key,
-    total bigint not null default 0 check (total >= 0)
+    view_day date   primary key,
+    total    bigint not null default 0 check (total >= 0)
 );
 
 -- Dedupe ledger. The composite primary key *is* the uniqueness check: the
@@ -37,10 +43,10 @@ create table daily_views (
 -- ip_hash is a salted SHA-256, never a raw address: enough to deduplicate and
 -- spot abuse, not enough to identify anyone.
 create table visitor_seen (
-    ip_hash varchar(64) not null,
-    day     date        not null,
-    primary key (ip_hash, day)
+    ip_hash  varchar(64) not null,
+    view_day date        not null,
+    primary key (ip_hash, view_day)
 );
 
 -- Supports the nightly retention job without scanning the table.
-create index idx_visitor_seen_day on visitor_seen (day);
+create index idx_visitor_seen_day on visitor_seen (view_day);

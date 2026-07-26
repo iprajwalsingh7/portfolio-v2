@@ -33,7 +33,7 @@ public interface ViewRepository extends JpaRepository<DailyViews, LocalDate> {
      */
     @Modifying
     @Query(value = """
-            insert into daily_views (day, total)
+            insert into daily_views (view_day, total)
             values (:day, 1)
             on conflict do nothing
             """, nativeQuery = true)

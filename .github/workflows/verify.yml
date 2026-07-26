@@ -37,6 +37,9 @@ jobs:
 
   backend:
     name: backend — compile and test
+    # ubuntu-latest provides Docker, which the view-counter tests need: they run
+    # against a real Postgres container rather than H2, because the dedupe relies
+    # on Postgres upsert semantics.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
