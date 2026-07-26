@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "name": "Prajwal Singh",
+    "role": "Backend Engineer",
+    "domain": "Fintech",
+    "tagline": "Backend Engineer · Fintech",
+    "location": "Bengaluru, IN",
+    "year": 2026,
+    "siteUrl": "https://iprajwalsingh7.dev",
+    "title": "Prajwal Singh — Backend Engineer, Fintech",
+    "description": "Backend engineer building the systems behind an automated options-trading product — execution, market data, and position state. Java, Spring Boot, Redis Lua, event-driven pipelines.",
+    "resumeFile": "/Prajwal-Singh-Resume.pdf",
+    "resumeDownloadName": "Prajwal-Singh-Resume.pdf"
+  },
+  "hero": {
+    "lines": [
+      {
+        "text": "Correctness",
+        "tone": "bright"
+      },
+      {
+        "text": "under",
+        "tone": "dim"
+      },
+      {
+        "text": "Concurrency",
+        "tone": "bright",
+        "period": true
+      }
+    ],
+    "lede": "Backend engineer building the systems behind an automated trading product — execution, market data, and position state, in fintech where a wrong number is a real loss."
+  },
+  "socials": [
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "handle": "in/iprajwalsingh7",
+      "href": "https://www.linkedin.com/in/iprajwalsingh7/"
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "handle": "iprajwalsingh7",
+      "href": "https://github.com/iprajwalsingh7"
+    },
+    {
+      "id": "x",
+      "label": "X",
+      "handle": "@iprajwalsingh7",
+      "href": "https://x.com/iprajwalsingh7"
+    },
+    {
+      "id": "mail",
+      "label": "Email",
+      "handle": "prajwalsingh0605@gmail.com",
+      "href": "mailto:prajwalsingh0605@gmail.com"
+    }
+  ],
+  "marquee": [
+    "Java",
+    "Spring Boot",
+    "Redis Lua",
+    "Redis Streams",
+    "Kafka",
+    "PostgreSQL",
+    "Elasticsearch",
+    "Docker",
+    "LLM APIs",
+    "Prompt Engineering",
+    "Python",
+    "Testcontainers"
+  ],
+  "sections": [
+    {
+      "id": "work",
+      "index": "01",
+      "label": "What I do"
+    },
+    {
+      "id": "experience",
+      "index": "02",
+      "label": "Experience"
+    },
+    {
+      "id": "projects",
+      "index": "03",
+      "label": "Projects"
+    },
+    {
+      "id": "stack",
+      "index": "04",
+      "label": "Stack"
+    },
+    {
+      "id": "background",
+      "index": "05",
+      "label": "Background"
+    },
+    {
+      "id": "contact",
+      "index": "06",
+      "label": "Contact"
+    }
+  ],
+  "statement": [
+    {
+      "text": "I build backend engines for a fintech trading product.",
+      "tone": "bright"
+    },
+    {
+      "text": "Atomic state, event-driven pipelines, execution paths that cannot double-fire.",
+      "tone": "dim"
+    },
+    {
+      "text": "And AI where it earns its place — LLM APIs, engineered prompt workflows, structured output parsed into typed schemas.",
+      "tone": "dim"
+    }
+  ],
+  "stats": [
+    {
+      "value": "4",
+      "suffix": "+",
+      "label": "Years writing backend code"
+    },
+    {
+      "value": "6",
+      "suffix": "+",
+      "label": "Months shipping production features"
+    },
+    {
+      "value": "20",
+      "suffix": "+",
+      "label": "Technologies used in anger"
+    }
+  ],
+  "experience": {
+    "heading": [
+      "The",
+      "product",
+      "& my",
+      "part in it"
+    ],
+    "blurb": "Option Circle — automated trading bot for options traders. I work on the engine underneath it.",
+    "roles": [
+      {
+        "title": "Automated Trading Bot",
+        "role": "Backend Developer · Option Circle",
+        "period": "Jun 2026 — Present",
+        "blurb": "A trading automation product for options traders: strategies are configured in the UI, then executed, monitored, and exited by the backend without a human in the loop. My work is the engine — the part that has to be right every tick.",
+        "contributions": [
+          {
+            "tag": "Trailing SL",
+            "text": "Built the dynamic trailing stop-loss engine in Redis Lua (EVAL/EVALSHA): atomic per-tick read–modify–write cycles track peak profit and derive dynamic exit thresholds, so concurrent market ticks can never race on shared position state."
+          },
+          {
+            "tag": "Tiered exits",
+            "text": "Implemented profit-trigger activation with trailing state persisted in Redis — staged entries and partial exits driven off the same atomic state, so a position scales in and unwinds in steps without inconsistent intermediate states."
+          },
+          {
+            "tag": "Decoupling",
+            "text": "Published close events over Redis Pub/Sub to separate exit detection from order-closing execution, so execution latency never blocks evaluation of the next tick."
+          },
+          {
+            "tag": "Pipelines",
+            "text": "Debug live order-execution, market-data, and position-management flows across distributed microservices; evaluated migrating the pipeline from Polygon WebSocket → Kafka → Telegraf → InfluxDB onto Redis Streams with a Go-based Telegraf bridge to cut infrastructure complexity."
+          }
+        ]
+      },
+      {
+        "title": "Schema & AI Layer",
+        "role": "Software Engineering Intern · Option Circle",
+        "period": "Jan — May 2026",
+        "blurb": "The translation layer between what a trader configures and what the engine executes — plus the first AI surfaces in the product.",
+        "contributions": [
+          {
+            "tag": "Conversion",
+            "text": "Engineered a high-performance conversion service (Java 11, Spring Boot) translating complex UI workflows into the canonical schemas the execution engine consumes."
+          },
+          {
+            "tag": "Schema mapping",
+            "text": "Architected a dynamic schema-mapping pipeline on LuaJ, executing 2,700+ lines of Lua transformation scripts for payload generation — mapping logic ships as scripts instead of requiring a backend recompile."
+          },
+          {
+            "tag": "Validation",
+            "text": "Authored 900+ lines of Java validation logic enforcing data-integrity constraints to reach functional parity with UI-level validation."
+          },
+          {
+            "tag": "Applied AI",
+            "text": "Integrated the Gemini API through Spring WebFlux clients for volatility agents — engineered the prompt workflow and parsed structured output into typed decisions behind technical gating."
+          }
+        ]
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "TickPulse",
+      "kind": "Personal · Real-time",
+      "period": "Jul 2026",
+      "summary": "Market alert and trailing-stop engine. Live crypto ticks from the Binance WebSocket land in Redis Streams, get evaluated atomically by Lua, and fan out to clients over Server-Sent Events.",
+      "impact": "At-least-once delivery via consumer groups, XACK acknowledgment, and pending-list recovery on restart; alert history persisted in PostgreSQL behind validated REST APIs with Actuator health and metrics; the full trailing-stop state machine verified end-to-end with Testcontainers.",
+      "tech": [
+        "Java 17",
+        "Spring Boot",
+        "Redis Streams",
+        "Redis Lua",
+        "PostgreSQL",
+        "WebSocket",
+        "SSE",
+        "Docker",
+        "Testcontainers"
+      ],
+      "link": "https://github.com/iprajwalsingh7"
+    },
+    {
+      "name": "Cooked",
+      "kind": "Personal · Applied AI",
+      "period": "Sep — Dec 2025",
+      "summary": "Backend aggregation service pulling user data from Spotify, GitHub, and Reddit over OAuth 2.0, then generating structured personas through an engineered prompt workflow.",
+      "impact": "Three third-party APIs behind one REST surface with rate-limit safeguards and hardened error handling; LLM output parsed deterministically into a typed persona schema rather than free text.",
+      "tech": [
+        "Java",
+        "Spring Boot",
+        "OAuth 2.0",
+        "Gemini API",
+        "REST APIs",
+        "Prompt engineering"
+      ],
+      "link": "https://github.com/iprajwalsingh7"
+    }
+  ],
+  "stack": [
+    {
+      "name": "Backend",
+      "items": [
+        "Java",
+        "Spring Boot",
+        "Spring WebFlux",
+        "Spring Data JPA",
+        "REST APIs",
+        "Microservices"
+      ]
+    },
+    {
+      "name": "Data & Messaging",
+      "items": [
+        "Redis Streams",
+        "Redis Lua",
+        "Redis Pub/Sub",
+        "Kafka",
+        "Elasticsearch",
+        "InfluxDB"
+      ]
+    },
+    {
+      "name": "Databases",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Cassandra"
+      ]
+    },
+    {
+      "name": "Applied AI",
+      "items": [
+        "LLM API integration",
+        "Prompt engineering",
+        "Structured output parsing",
+        "Gemini API",
+        "AI agents"
+      ]
+    },
+    {
+      "name": "Languages",
+      "items": [
+        "Java",
+        "SQL",
+        "Lua",
+        "Python",
+        "C",
+        "C++"
+      ]
+    },
+    {
+      "name": "Tooling",
+      "items": [
+        "Docker",
+        "Testcontainers",
+        "Git",
+        "AWS",
+        "JMeter",
+        "Postman",
+        "IntelliJ IDEA"
+      ]
+    },
+    {
+      "name": "Concepts",
+      "items": [
+        "Event-driven architecture",
+        "Concurrency",
+        "Caching strategies",
+        "OAuth 2.0",
+        "Generative AI",
+        "DS & Algorithms"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "MVJ College of Engineering",
+      "credential": "B.E. Information Science and Engineering",
+      "detail": "CGPA 8.29",
+      "place": "Bengaluru, KA",
+      "period": "Nov 2022 — Jun 2026"
+    },
+    {
+      "school": "St. Mary's Convent School",
+      "credential": "Intermediate & Matriculation",
+      "detail": "79.2% · 88.8%",
+      "place": "Varanasi, UP",
+      "period": "May 2019 — Jul 2021"
+    }
+  ],
+  "contact": {
+    "heading": [
+      "Let's talk",
+      "systems"
+    ],
+    "note": "Open to backend and platform roles. Fastest way to reach me is email — the form below lands in the same inbox.",
+    "reach": [
+      {
+        "label": "Email",
+        "value": "prajwalsingh0605@gmail.com",
+        "href": "mailto:prajwalsingh0605@gmail.com"
+      },
+      {
+        "label": "Phone",
+        "value": "+91 73983 14111",
+        "href": "tel:+917398314111"
+      },
+      {
+        "label": "LinkedIn",
+        "value": "in/iprajwalsingh7",
+        "href": "https://www.linkedin.com/in/iprajwalsingh7/"
+      },
+      {
+        "label": "X",
+        "value": "@iprajwalsingh7",
+        "href": "https://x.com/iprajwalsingh7"
+      },
+      {
+        "label": "GitHub",
+        "value": "iprajwalsingh7",
+        "href": "https://github.com/iprajwalsingh7"
+      }
+    ]
+  }
+}

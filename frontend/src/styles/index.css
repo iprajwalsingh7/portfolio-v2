@@ -1,0 +1,1235 @@
+/* ============================================================================
+   Prajwal Singh — portfolio
+   This file is inlined into <head> at build time (see scripts/prerender.mjs),
+   so it must stay small. Everything here is critical-path CSS.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- fonts --- */
+/* Self-hosted from npm (@fontsource*) and copied to /fonts by copy-fonts.mjs.
+   No third-party font request, no extra DNS/TLS handshake. */
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/archivo-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------- tokens --- */
+
+:root {
+  color-scheme: dark;
+
+  --ink: #0b0b0c;
+  --ink-raised: #101012;
+  --bone: #efede8;
+  --text: #a3a1a6;
+  --text-strong: #b9b7bc;
+  --dim: #77767a;
+  --dimmer: #5f5e63;
+  --line: #1e1f22;
+  --line-soft: #171819;
+  --accent: #c8ff4d;
+  --accent-ink: #0b0b0c;
+
+  --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --gutter: clamp(18px, 4vw, 30px);
+  --shell: 1500px;
+  --rhythm: clamp(90px, 11vw, 150px);
+  --rail: 78px;
+
+  /* Shared easing. One curve for the whole site keeps motion coherent. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* Set to 0 by the prefers-reduced-motion media query below, so one multiplier
+     disables every transform-based offset at once — before any JS has run. */
+  --motion: 1;
+}
+
+/* --------------------------------------------------------------- base ----- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto; /* Lenis owns scrolling; native smooth would fight it */
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* <main> takes focus from the skip link but must not show a ring for it. */
+main:focus {
+  outline: none;
+}
+
+/* Lenis takes over the document scroller. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.u-hide {
+  display: none !important;
+}
+
+.u-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — keyboard users shouldn't have to tab the chrome first. */
+.skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  border-radius: 999px;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease);
+}
+.skip:focus-visible {
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------- layout --- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: 0 var(--rhythm);
+}
+
+/* No content-visibility here, deliberately.
+   `content-visibility: auto` with `contain-intrinsic-size` reports every
+   not-yet-rendered section as its placeholder height. Lenis resolves and clamps a
+   scrollTo target once, against a cached scroll limit, so rail links to later
+   sections landed short and the progress readout moved backwards as sections
+   rendered and the real height appeared. The whole document is 11 kB gzipped and
+   paints in one frame, so skipping offscreen layout bought almost nothing and
+   cost scroll accuracy. The class is kept as a hook. */
+.section--deferred {
+  contain: layout style;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------- chrome --- */
+
+.chrome {
+  position: fixed;
+  z-index: 60;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  pointer-events: none;
+}
+.chrome--tl {
+  top: 26px;
+  left: var(--gutter);
+}
+.chrome--tr {
+  top: 26px;
+  right: var(--gutter);
+}
+.chrome--br {
+  right: var(--gutter);
+  bottom: 26px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.chrome--bl {
+  left: var(--gutter);
+  bottom: 26px;
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--dim);
+  background: rgb(255 255 255 / 0.02);
+  transition:
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    background 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.icon-btn svg {
+  width: 15px;
+  height: 15px;
+}
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  transform: translateY(calc(-2px * var(--motion)));
+}
+
+/* Progress hairline across the top — cheaper and clearer than a number alone. */
+.progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 70;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Section rail — dot per section, doubles as nav. */
+.rail {
+  position: fixed;
+  top: 50%;
+  right: var(--gutter);
+  translate: 0 -50%;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rail__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 5px 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+  transition: color 0.25s var(--ease);
+}
+.rail__label {
+  opacity: 0;
+  translate: calc(6px * var(--motion)) 0;
+  transition:
+    opacity 0.25s var(--ease),
+    translate 0.25s var(--ease);
+}
+.rail__tick {
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition:
+    width 0.25s var(--ease),
+    background 0.25s var(--ease);
+}
+.rail__item:hover,
+.rail__item:focus-visible,
+.rail__item[aria-current='true'] {
+  color: var(--accent);
+}
+.rail__item:hover .rail__label,
+.rail__item:focus-visible .rail__label,
+.rail__item[aria-current='true'] .rail__label {
+  opacity: 1;
+  translate: 0 0;
+}
+.rail__item[aria-current='true'] .rail__tick {
+  width: 30px;
+}
+
+/* ----------------------------------------------------------------- hero --- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 110px var(--gutter) 120px;
+  overflow: clip;
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.hero__canvas.is-ready {
+  opacity: 0.5;
+}
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      rgb(11 11 12 / 0.35),
+      rgb(11 11 12 / 0.92) 75%
+    );
+}
+
+.hero__inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+}
+
+.hero__line {
+  font-size: clamp(46px, 12.2vw, 196px);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+.hero__line--dim {
+  color: var(--dim);
+}
+.hero__period {
+  color: var(--accent);
+}
+
+.hero__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: clamp(30px, 4vw, 44px);
+  max-width: 1180px;
+}
+.hero__lede {
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 44ch;
+}
+
+/* -------------------------------------------------------------- marquee --- */
+
+.marquee {
+  border-block: 1px solid var(--line);
+  padding-block: 20px;
+  overflow: clip;
+  /* Fade the ends so the loop seam is never visible. */
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+/* Only promote it while it is actually moving. `animation-play-state: paused`
+   does not release a composited layer, and this is the widest layer on the page. */
+.marquee:not(.is-paused) .marquee__track {
+  will-change: transform;
+}
+.marquee.is-paused .marquee__track {
+  animation-play-state: paused;
+}
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding-right: 40px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+  white-space: nowrap;
+}
+.marquee__dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: var(--accent);
+  rotate: 45deg;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ------------------------------------------------------------ statement --- */
+
+.statement {
+  padding-top: var(--rhythm);
+}
+.statement__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+/* Lit by scroll position. statement.ts writes --lit (0..1) as each line passes
+   the reading line; the colour is mixed rather than swapped so the transition is
+   continuous. The plain declaration is the fallback for browsers without
+   color-mix — they get the dim colour, which is legible on its own. */
+.statement__line {
+  font-size: clamp(24px, 4.1vw, 58px);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.032em;
+  max-width: 26ch;
+  color: #8e8c91;
+}
+
+@supports (color: color-mix(in srgb, red 50%, blue)) {
+  .statement__line {
+    color: color-mix(
+      in srgb,
+      var(--bone) calc(var(--lit, 0) * 100%),
+      #8e8c91
+    );
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  margin-top: clamp(56px, 8vw, 110px);
+  border-top: 1px solid var(--line);
+}
+/* Cells are inset from the dividers on both sides. The original padding was
+   `32px 30px 32px 0`, which left every cell after the first touching the rule to
+   its left. Only the first cell drops its left padding, so the grid still aligns
+   with the section gutter. */
+.stat {
+  padding: 34px 34px 34px 0;
+  border-right: 1px solid var(--line);
+}
+.stat + .stat {
+  padding-left: 34px;
+}
+.stat:last-child {
+  border-right: 0;
+}
+.stat__n {
+  font-size: clamp(34px, 4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  font-size: 13.5px;
+  color: var(--dim);
+  margin-top: 12px;
+  line-height: 1.45;
+  max-width: 24ch;
+}
+
+/* ------------------------------------------------------------- two-col ---- */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.62fr) minmax(320px, 1.38fr);
+  gap: clamp(28px, 4vw, 60px);
+  align-items: start;
+}
+
+.split__aside {
+  position: sticky;
+  top: 110px;
+}
+.split__title {
+  font-size: clamp(30px, 3.6vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+.split__blurb {
+  margin-top: 26px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--dim);
+  max-width: 32ch;
+}
+
+/* ----------------------------------------------------------------- role --- */
+
+.role {
+  border-top: 1px solid var(--line);
+  padding-block: clamp(30px, 4vw, 44px);
+}
+.role__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.role__title {
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.role__period,
+.role__kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.role__kicker {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 22px;
+  white-space: normal;
+}
+.role__blurb {
+  font-size: clamp(15px, 1.2vw, 16px);
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 62ch;
+  margin-bottom: 26px;
+}
+.contribs {
+  border-top: 1px solid var(--line);
+}
+.contrib {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 24px;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.contrib__tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 3px;
+}
+.contrib__text {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-strong);
+}
+
+/* -------------------------------------------------------------- project --- */
+
+.project {
+  border-top: 1px solid var(--line);
+  padding-block: clamp(28px, 3.5vw, 40px);
+  padding-inline: 0;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.62fr) minmax(320px, 1.38fr);
+  gap: clamp(28px, 4vw, 60px);
+  transition:
+    background 0.35s var(--ease),
+    padding-inline 0.35s var(--ease);
+}
+@media (hover: hover) {
+  .project:hover {
+    background: rgb(255 255 255 / 0.018);
+    padding-inline: 14px;
+  }
+}
+.project__name {
+  font-size: clamp(26px, 2.7vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+.project__kind {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 14px;
+}
+.project__summary {
+  font-size: clamp(15px, 1.2vw, 16px);
+  line-height: 1.7;
+  color: var(--text);
+  max-width: 60ch;
+  margin-bottom: 22px;
+}
+.note {
+  border-left: 1px solid var(--accent);
+  padding-left: 18px;
+  margin-bottom: 24px;
+}
+.note__label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 7px;
+}
+.note__text {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-strong);
+  max-width: 58ch;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  color: var(--dim);
+}
+
+.link-out {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding-bottom: 2px;
+}
+.link-out svg {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.25s var(--ease);
+}
+.link-out:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ---------------------------------------------------------------- stack --- */
+
+.stack__row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.5fr) 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  padding-block: 26px;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+  transition: padding-left 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .stack__row:hover {
+    padding-left: 10px;
+  }
+}
+.stack__name {
+  font-size: clamp(17px, 1.7vw, 25px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.stack__items {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 22px;
+  row-gap: 10px;
+}
+.stack__item {
+  font-size: 15px;
+  color: var(--text);
+  transition: color 0.2s var(--ease);
+}
+.stack__item:hover {
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------ education --- */
+
+.edu {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.5fr) 1fr auto;
+  gap: clamp(16px, 3vw, 40px);
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+}
+.edu__school {
+  font-size: clamp(16px, 1.5vw, 21px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.edu__credential {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.edu__detail {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.edu__meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* -------------------------------------------------------------- contact --- */
+
+.contact {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(80px, 10vw, 130px);
+  padding-bottom: 60px;
+}
+.contact__title {
+  font-size: clamp(34px, 7.6vw, 124px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  margin-bottom: clamp(32px, 5vw, 60px);
+}
+.contact__note {
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.65;
+  color: var(--text);
+  max-width: 52ch;
+  margin-bottom: clamp(40px, 6vw, 70px);
+}
+
+.reach {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  border-top: 1px solid var(--line);
+}
+.reach__item {
+  padding: 30px 34px 30px 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: padding-left 0.3s var(--ease);
+}
+.reach__item + .reach__item {
+  padding-left: 34px;
+}
+/* Hover nudges the text further in rather than starting from the divider. */
+.reach__item:hover {
+  padding-left: 14px;
+}
+.reach__item + .reach__item:hover {
+  padding-left: 48px;
+}
+.reach__item:last-child {
+  border-right: 0;
+}
+.reach__label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.reach__value {
+  font-size: clamp(15px, 1.3vw, 17px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(32px, 4vw, 44px);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    filter 0.2s var(--ease),
+    transform 0.25s var(--ease);
+}
+.btn svg {
+  width: 11px;
+  height: 11px;
+}
+.btn:hover {
+  transform: translateY(calc(-2px * var(--motion)));
+}
+.btn--solid {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+.btn--solid:hover {
+  filter: brightness(1.08);
+}
+.btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- form --- */
+
+.form {
+  margin-top: clamp(56px, 8vw, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(36px, 5vw, 56px);
+  max-width: 760px;
+}
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.field--wide {
+  grid-column: 1 / -1;
+}
+.field__label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.field__input,
+.field__area {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--bone);
+  background: rgb(255 255 255 / 0.02);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 13px 14px;
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease);
+}
+.field__area {
+  min-height: 130px;
+  resize: vertical;
+  line-height: 1.6;
+}
+.field__input:hover,
+.field__area:hover {
+  border-color: #2a2b2f;
+}
+.field__input:focus,
+.field__area:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+.field__input::placeholder,
+.field__area::placeholder {
+  color: var(--dimmer);
+}
+.field__error {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: #ff7a5c;
+  min-height: 1em;
+}
+/* Honeypot: off-screen, not display:none, so bots still see and fill it. */
+.field--trap {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Only one of the form and its fallback is ever visible. Default to the form,
+   because that is the case when the backend is present. */
+.form-fallback {
+  display: none;
+  margin-top: clamp(56px, 8vw, 96px);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(36px, 5vw, 56px);
+  max-width: 760px;
+}
+.no-api .form-fallback {
+  display: block;
+}
+.no-api .form {
+  display: none;
+}
+
+.form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+}
+.form__status {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+}
+.form__status[data-tone='ok'] {
+  color: var(--accent);
+}
+.form__status[data-tone='error'] {
+  color: #ff7a5c;
+}
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+/* --------------------------------------------------------------- footer --- */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: clamp(60px, 9vw, 100px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+}
+.footer__views[hidden] {
+  display: none;
+}
+
+/* --------------------------------------------------------------- motion --- */
+
+/* Reveal primitive. JS only toggles .is-in; CSS owns the animation, so the
+   main thread never touches layout properties. */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, calc(30px * var(--motion)), 0);
+  transition:
+    opacity 0.85s var(--ease),
+    transform 0.85s var(--ease);
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-stagger] > * {
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+/* Hero lines animate in on load without waiting for JS. */
+.hero__line,
+.hero__foot {
+  opacity: 0;
+  transform: translate3d(0, calc(46px * var(--motion)), 0);
+  animation: rise 1s var(--ease) forwards;
+  animation-delay: calc(0.1s + var(--i, 0) * 0.08s);
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------ responsive -- */
+
+@media (max-width: 1180px) {
+  .rail {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .chrome--tl,
+  .chrome--tr {
+    display: none;
+  }
+  .split,
+  .project {
+    grid-template-columns: 1fr;
+  }
+  .split__aside {
+    position: static;
+  }
+  .stack__row,
+  .edu {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .edu__meta {
+    text-align: left;
+  }
+  .contrib {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .stat {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding-right: 0;
+  }
+  .reach__item {
+    padding-right: 0;
+    border-right: 0;
+  }
+}
+
+@media (max-height: 700px) {
+  .chrome--bl,
+  .chrome--br {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .chrome--br {
+    display: none;
+  }
+  .chrome--bl {
+    bottom: 18px;
+  }
+}
+
+/* Honour the OS setting even before JS boots. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero__line,
+  .hero__foot,
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .hero__canvas {
+    display: none;
+  }
+}
+
+/* No-JS: nothing here depends on scripts, but the reveal primitive starts
+   hidden, so unhide it. */
+.no-js [data-reveal],
+.no-js .hero__line,
+.no-js .hero__foot {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+/* Chrome that only works with JS. The form and the rail stay: the form posts
+   natively to the API, and the rail entries are real anchors. With no script the
+   statement lines never receive --lit, so light them all. */
+.no-js .progress {
+  display: none;
+}
+.no-js .statement__line {
+  --lit: 1;
+}

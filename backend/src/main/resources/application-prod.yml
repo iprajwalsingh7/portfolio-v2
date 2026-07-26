@@ -1,0 +1,60 @@
+# Production: Postgres, Flyway-managed schema, real SMTP.
+# Every secret comes from the environment — nothing sensitive is committed.
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/portfolio}
+    username: ${DATABASE_USER:portfolio}
+    password: ${DATABASE_PASSWORD:}
+    hikari:
+      # Small on purpose. A portfolio makes at most a couple of queries per visit,
+      # and an oversized pool just holds Postgres connections hostage.
+      maximum-pool-size: 8
+      minimum-idle: 2
+      connection-timeout: 10000
+
+  jpa:
+    hibernate:
+      # Flyway owns the schema. `validate` is tempting here, but Hibernate's
+      # validator compares column type names as strings and disagrees with
+      # PostgreSQL over spellings it should not care about (bpchar vs varchar,
+      # timestamptz vs `timestamp with time zone`) — a false failure that refuses
+      # to start is worse than no check. Flip this to `validate` once you have
+      # confirmed it passes against your actual Postgres.
+      ddl-auto: none
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+portfolio:
+  contact:
+    mail-enabled: ${CONTACT_MAIL_ENABLED:true}
+  privacy:
+    # No default on purpose. Spring treats everything after the first colon as a
+    # literal default value, so there is no ":?required" form — the only way to
+    # make this mandatory is to leave the placeholder unresolvable, which fails
+    # startup loudly. ClientIdentity rejects the development salt as well.
+    ip-salt: ${IP_SALT}
+
+logging:
+  level:
+    root: WARN
+    com.prajwalsingh.portfolio: INFO

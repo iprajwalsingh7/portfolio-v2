@@ -1,0 +1,53 @@
+# Zero-setup local profile: in-memory H2, schema from the entities, no mail.
+# Run with:  mvn spring-boot:run
+spring:
+  datasource:
+    url: jdbc:h2:mem:portfolio;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+  # Flyway migrations are written in Postgres SQL, so they are skipped here and
+  # Hibernate builds the schema instead. Prod is the case that must be exact.
+  flyway:
+    enabled: false
+
+  # Same SMTP wiring as prod, driven by the same environment variables. Without a
+  # host here Boot creates no JavaMailSender at all, so CONTACT_MAIL_ENABLED=true
+  # would silently do nothing in local development.
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+portfolio:
+  contact:
+    # Off unless you opt in, but honours the env var so a local .env can enable it.
+    mail-enabled: ${CONTACT_MAIL_ENABLED:false}
+    notify-to: ${CONTACT_NOTIFY_TO:prajwalsingh0605@gmail.com}
+    from: ${CONTACT_FROM:}
+  rate-limit:
+    capacity: 50          # relaxed so testing the form is not a chore
+    refill: PT1M
+  privacy:
+    ip-salt: dev-only-salt
+
+logging:
+  level:
+    org.hibernate.SQL: INFO

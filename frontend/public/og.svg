@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0B0B0C"/>
+  <g stroke="#EFEDE8" stroke-opacity=".07">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/>
+    <path d="M100 0v630M300 0v630M500 0v630M700 0v630M900 0v630M1100 0v630"/>
+  </g>
+  <path d="M0 430 90 400l90 44 90-72 90 38 90-96 90 58 90-24 90 66 90-110 90 52 90-30 90 44"
+        fill="none" stroke="#C8FF4D" stroke-opacity=".55" stroke-width="3"/>
+  <text x="72" y="270" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="112"
+        font-weight="700" letter-spacing="-5" fill="#EFEDE8">PRAJWAL SINGH</text>
+  <text x="76" y="336" font-family="ui-monospace,SFMono-Regular,Menlo,monospace"
+        font-size="26" letter-spacing="4" fill="#77767A">BACKEND ENGINEER · FINTECH</text>
+  <text x="76" y="400" font-family="Archivo,Helvetica,Arial,sans-serif" font-size="34"
+        fill="#A3A1A6">Correctness under concurrency<tspan fill="#C8FF4D">.</tspan></text>
+</svg>

@@ -1,0 +1,15 @@
+# Normalise line endings on commit, check out native on Windows.
+* text=auto eol=lf
+
+# Files that MUST be LF or they break inside the Linux container.
+Dockerfile      text eol=lf
+Caddyfile       text eol=lf
+*.sh            text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+
+# Binary — never touch.
+*.png    binary
+*.pdf    binary
+*.woff2  binary
+*.ico    binary

@@ -1,0 +1,25 @@
+# --- node -------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+
+# --- generated frontend artefacts -------------------------------------------
+# index.html is produced by scripts/prerender.mjs from content.json.
+frontend/index.html
+frontend/public/fonts/
+frontend/dist/
+
+# --- generated backend artefacts --------------------------------------------
+# The frontend build writes both of these; they are outputs, not sources.
+backend/src/main/resources/static/
+backend/src/main/resources/content.json
+backend/target/
+
+# --- secrets ----------------------------------------------------------------
+.env
+*.pem
+
+# --- editors / os -----------------------------------------------------------
+.idea/
+.vscode/
+*.iml
+.DS_Store

@@ -1,0 +1,82 @@
+# Shared configuration. Profile-specific overrides live in the sibling files;
+# `dev` is the default so a clean checkout runs with no infrastructure at all.
+spring:
+  application:
+    name: portfolio
+
+  profiles:
+    default: dev
+
+  threads:
+    # Virtual threads. This workload is blocking I/O — one Postgres round trip and
+    # one SMTP handshake — so the platform thread pool stops being the ceiling on
+    # concurrency and there is no pool left to size wrongly.
+    virtual:
+      enabled: true
+
+  jpa:
+    open-in-view: false   # off: lazy loading should never depend on the request
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  mvc:
+    problemdetails:
+      enabled: false      # GlobalExceptionHandler owns the error shape
+
+server:
+  port: 8080
+  # Gzip the text payloads. index.html is ~46 kB raw and ~11 kB compressed, so
+  # this is the single biggest transfer win available.
+  compression:
+    enabled: true
+    mime-types: text/html,text/css,text/plain,text/xml,application/json,application/javascript,image/svg+xml
+    min-response-size: 1024
+  http2:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+    include-message: never
+    include-stacktrace: never
+  shutdown: graceful
+  # Trust the proxy's X-Forwarded-* headers so request.isSecure() and the client
+  # address are correct behind a load balancer.
+  forward-headers-strategy: framework
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+  health:
+    # Reaching SMTP is not a liveness concern. Submissions are persisted before
+    # any mail is attempted, so a dead relay must not make the whole service
+    # report DOWN and get restarted by the orchestrator.
+    mail:
+      enabled: false
+
+portfolio:
+  site-url: https://prajwalsingh.dev
+  contact:
+    notify-to: ${CONTACT_NOTIFY_TO:prajwalsingh0605@gmail.com}
+    # Blank means "use spring.mail.username", which is what Gmail requires.
+    from: ${CONTACT_FROM:}
+    subject: "[portfolio] "
+    mail-enabled: ${CONTACT_MAIL_ENABLED:false}
+  rate-limit:
+    capacity: 3
+    refill: PT1H
+  privacy:
+    ip-salt: ${IP_SALT:change-me-in-production}
+
+logging:
+  level:
+    root: INFO
+    com.prajwalsingh.portfolio: DEBUG
