@@ -1,0 +1,28 @@
+{
+  // Cloudflare Workers config for deploying the static site.
+  //
+  // There is no `main` entry on purpose: this is an assets-only Worker, so
+  // Cloudflare serves the prerendered files directly from its edge with no
+  // JavaScript executing per request. The Spring Boot backend is a separate
+  // concern — the page detects its absence and shows an email button instead of
+  // the contact form, so this deployment is complete on its own.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "iprajwalsingh7",
+  "compatibility_date": "2026-07-26",
+
+  "assets": {
+    // Where `npm run build` writes. The frontend build outputs into the backend's
+    // classpath directory so that `mvn package` can bundle the site into one jar;
+    // this points at that same directory.
+    "directory": "./backend/src/main/resources/static",
+
+    // Serve the styled 404.html for unknown paths rather than Cloudflare's
+    // default page. Not "single-page-application" — this is one real page, so a
+    // wrong URL should be a 404, not a silent rewrite to the homepage.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}
