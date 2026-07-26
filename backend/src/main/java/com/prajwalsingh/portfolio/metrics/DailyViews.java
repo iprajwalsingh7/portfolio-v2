@@ -13,6 +13,9 @@ import jakarta.persistence.Table;
 public class DailyViews {
 
     @Id
+    // Not "day": DAY is a reserved word in H2 and in SQL:2016. Hibernate quotes
+    // reserved identifiers in the SQL it generates, so JPQL survives either way —
+    // but the hand-written native upserts do not, and they fail to parse.
     @Column(name = "view_date", nullable = false)
     private LocalDate day;
 

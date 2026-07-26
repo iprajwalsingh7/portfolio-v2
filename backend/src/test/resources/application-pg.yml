@@ -8,6 +8,11 @@
 spring:
   jpa:
     hibernate:
+      # Schema validation lives in SchemaMappingTest, not here. Hibernate's validator
+      # compares column type names as strings and is known to disagree with Postgres
+      # over spellings it should not care about (timestamptz vs `timestamp with time
+      # zone`). Keeping it out of this profile means an over-strict validator cannot
+      # take the behavioural tests down with it.
       ddl-auto: none
   flyway:
     enabled: true

@@ -34,7 +34,7 @@ public interface VisitorSeenRepository extends JpaRepository<VisitorSeen, Visito
      */
     @Modifying
     @Query(value = """
-            insert into visitor_seen (ip_hash, view_day)
+            insert into visitor_seen (ip_hash, view_date)
             values (:ipHash, :day)
             on conflict do nothing
             """, nativeQuery = true)
