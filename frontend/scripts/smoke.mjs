@@ -108,10 +108,10 @@ check('scroll cue is gone', !/hero__cue|>Scroll</.test(html));
 check('statement lines are scroll-lit', (html.match(/data-statement/g) ?? []).length === 3);
 check('statement colour is driven by --lit', /var\(--lit/.test(html));
 check('the Lua line-count stat is gone', !/Lines of Lua/.test(html));
-check('tenure stat is present', /Months shipping production features/.test(html));
+check('strategy coverage stat is present', /Trading strategies supported by the LLM parser/.test(html));
 check('x profile is linked', /x\.com\/iprajwalsingh7/.test(html));
 check('the "This Site" project is gone', !/>THIS SITE<|"This Site"/i.test(html));
-check('canonical points at the real domain', /rel="canonical" href="https:\/\/iprajwalsingh7\.dev"/.test(html));
+check('canonical points at the published site', /rel="canonical" href="https:\/\/iprajwalsingh7\.prajwalsingh0605\.workers\.dev\/"/.test(html));
 check('a static deploy has an email fallback', /class="form-fallback"/.test(html));
 check('the fallback is hidden unless the api is missing',
   /\.form-fallback\{display:none/.test(html.replace(/\s+/g, ' ').replace(/ ?([{},:;]) ?/g, '$1')));
@@ -379,3 +379,4 @@ if (failures > 0) {
 }
 console.log('smoke test passed');
 process.exit(0);
+

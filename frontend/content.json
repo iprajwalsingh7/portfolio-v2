@@ -2,13 +2,13 @@
   "meta": {
     "name": "Prajwal Singh",
     "role": "Backend Engineer",
-    "domain": "Fintech",
-    "tagline": "Backend Engineer · Fintech",
+    "domain": "LLM Applications & AI Systems",
+    "tagline": "Backend Engineer · Applied AI",
     "location": "Bengaluru, IN",
     "year": 2026,
-    "siteUrl": "https://iprajwalsingh7.dev",
-    "title": "Prajwal Singh — Backend Engineer, Fintech",
-    "description": "Backend engineer building the systems behind an automated options-trading product — execution, market data, and position state. Java, Spring Boot, Redis Lua, event-driven pipelines.",
+    "siteUrl": "https://iprajwalsingh7.prajwalsingh0605.workers.dev/",
+    "title": "Prajwal Singh — Backend Engineer, LLM Applications & AI Systems",
+    "description": "Backend engineer building production trading systems and LLM-powered workflows. Java, Spring Boot, Redis and Lua — from natural-language bots across 24 strategies to trailing stops and tiered exits.",
     "resumeFile": "/Prajwal-Singh-Resume.pdf",
     "resumeDownloadName": "Prajwal-Singh-Resume.pdf"
   },
@@ -28,7 +28,7 @@
         "period": true
       }
     ],
-    "lede": "Backend engineer building the systems behind an automated trading product — execution, market data, and position state, in fintech where a wrong number is a real loss."
+    "lede": "Backend engineer at Option Circle, building production trading systems and LLM-powered workflows — from natural-language bot creation to trailing stops and tiered exits."
   },
   "socials": [
     {
@@ -63,10 +63,10 @@
     "Redis Streams",
     "Kafka",
     "PostgreSQL",
-    "Elasticsearch",
+    "Gemini API",
+    "Structured Outputs",
+    "Spring WebFlux",
     "Docker",
-    "LLM APIs",
-    "Prompt Engineering",
     "Python",
     "Testcontainers"
   ],
@@ -104,33 +104,33 @@
   ],
   "statement": [
     {
-      "text": "I build backend engines for a fintech trading product.",
+      "text": "I build the backend behind automated trading — and the AI that makes it easier to use.",
       "tone": "bright"
     },
     {
-      "text": "Atomic state, event-driven pipelines, execution paths that cannot double-fire.",
+      "text": "Atomic state, broker-aware execution, and duplicate guards that let failed closes retry.",
       "tone": "dim"
     },
     {
-      "text": "And AI where it earns its place — LLM APIs, engineered prompt workflows, structured output parsed into typed schemas.",
+      "text": "Natural language becomes validated, runnable bots. I'm also developing my Python and machine learning skills to build reliable AI applications.",
       "tone": "dim"
     }
   ],
   "stats": [
     {
+      "value": "24",
+      "suffix": "",
+      "label": "Trading strategies supported by the LLM parser"
+    },
+    {
       "value": "4",
-      "suffix": "+",
-      "label": "Years writing backend code"
+      "suffix": "",
+      "label": "Broker integrations for tiered exits"
     },
     {
-      "value": "6",
-      "suffix": "+",
-      "label": "Months shipping production features"
-    },
-    {
-      "value": "20",
-      "suffix": "+",
-      "label": "Technologies used in anger"
+      "value": "1",
+      "suffix": "",
+      "label": "Model request for bot specification & explanation"
     }
   ],
   "experience": {
@@ -140,53 +140,57 @@
       "& my",
       "part in it"
     ],
-    "blurb": "Option Circle — automated trading bot for options traders. I work on the engine underneath it.",
+    "blurb": "Option Circle — options-trading automation. My work spans the LLM conversion layer, trailing-stop engine, and tiered profit-taking.",
     "roles": [
       {
-        "title": "Automated Trading Bot",
-        "role": "Backend Developer · Option Circle",
+        "title": "Trading Execution & Exits",
+        "role": "Junior Software Engineer (Backend) · Option Circle",
         "period": "Jun 2026 — Present",
-        "blurb": "A trading automation product for options traders: strategies are configured in the UI, then executed, monitored, and exited by the backend without a human in the loop. My work is the engine — the part that has to be right every tick.",
+        "blurb": "Building the execution paths that turn a trader's exit rules into broker orders, with state coordination across market ticks, working orders, and fills.",
         "contributions": [
           {
-            "tag": "Trailing SL",
-            "text": "Built the dynamic trailing stop-loss engine in Redis Lua (EVAL/EVALSHA): atomic per-tick read–modify–write cycles track peak profit and derive dynamic exit thresholds, so concurrent market ticks can never race on shared position state."
-          },
-          {
             "tag": "Tiered exits",
-            "text": "Implemented profit-trigger activation with trailing state persisted in Redis — staged entries and partial exits driven off the same atomic state, so a position scales in and unwinds in steps without inconsistent intermediate states."
+            "text": "Shipped configurable profit-taking across TradeStation, TastyTrade, Tradier and Webull, plus paper trading. Positions can close in steps as profit targets are reached."
           },
           {
-            "tag": "Decoupling",
-            "text": "Published close events over Redis Pub/Sub to separate exit detection from order-closing execution, so execution latency never blocks evaluation of the next tick."
+            "tag": "Position sizing",
+            "text": "Sized each tier from original holdings, preserved multi-leg spread ratios, and capped orders at holdings minus working quantities to prevent overselling. The final tier closes all remaining contracts."
           },
           {
-            "tag": "Pipelines",
-            "text": "Debug live order-execution, market-data, and position-management flows across distributed microservices; evaluated migrating the pipeline from Polygon WebSocket → Kafka → Telegraf → InfluxDB onto Redis Streams with a Go-based Telegraf bridge to cut infrastructure complexity."
+            "tag": "Fill handling",
+            "text": "Coordinated fills, partial fills, cancellations and retries with Redis order-to-tier state. Duplicate-message guards and atomic fill claims prevent repeated processing and duplicate sell records."
+          },
+          {
+            "tag": "Trailing stops",
+            "text": "Built a Redis Lua engine for profit and loss trailing, with atomic per-tick peak tracking and exit evaluation. Rules arrive through Redis Streams; close requests reach Bot-Engine over Kafka."
+          },
+          {
+            "tag": "Close guards",
+            "text": "Added shared close locks, broker-stage lock extension and trigger-time checks to suppress duplicate exit requests while allowing failed closes to retry."
           }
         ]
       },
       {
-        "title": "Schema & AI Layer",
-        "role": "Software Engineering Intern · Option Circle",
+        "title": "Natural Language → Trading Bots",
+        "role": "Backend Engineering Intern · Option Circle",
         "period": "Jan — May 2026",
-        "blurb": "The translation layer between what a trader configures and what the engine executes — plus the first AI surfaces in the product.",
+        "blurb": "Built the production LLM parser and conversion layer: a trader describes a strategy, and the service turns it into a validated bot that can be saved and scheduled.",
         "contributions": [
           {
-            "tag": "Conversion",
-            "text": "Engineered a high-performance conversion service (Java 11, Spring Boot) translating complex UI workflows into the canonical schemas the execution engine consumes."
-          },
-          {
-            "tag": "Schema mapping",
-            "text": "Architected a dynamic schema-mapping pipeline on LuaJ, executing 2,700+ lines of Lua transformation scripts for payload generation — mapping logic ships as scripts instead of requiring a backend recompile."
+            "tag": "24 strategies",
+            "text": "Used Gemini, Java, Spring Boot and embedded LuaJ to convert natural-language instructions into workflow nodes and edges across 24 trading strategies, then persisted and scheduled bots through Bot-Engine."
           },
           {
             "tag": "Validation",
-            "text": "Authored 900+ lines of Java validation logic enforcing data-integrity constraints to reach functional parity with UI-level validation."
+            "text": "Checked required fields and allowed values on the server before conversion. Build-time checks against UI and engine definitions catch configuration drift before deployment."
           },
           {
-            "tag": "Applied AI",
-            "text": "Integrated the Gemini API through Spring WebFlux clients for volatility agents — engineered the prompt workflow and parsed structured output into typed decisions behind technical gating."
+            "tag": "Conversion",
+            "text": "Passed the structured specification through Java validation and Lua conversion, then assembled the workflow graph consumed by the trading engine."
+          },
+          {
+            "tag": "One AI call",
+            "text": "Integrated Gemini through non-blocking Spring WebFlux clients. One model request produces both the structured bot specification and its explanation."
           }
         ]
       }
@@ -198,7 +202,7 @@
       "kind": "Personal · Real-time",
       "period": "Jul 2026",
       "summary": "Market alert and trailing-stop engine. Live crypto ticks from the Binance WebSocket land in Redis Streams, get evaluated atomically by Lua, and fan out to clients over Server-Sent Events.",
-      "impact": "At-least-once delivery via consumer groups, XACK acknowledgment, and pending-list recovery on restart; alert history persisted in PostgreSQL behind validated REST APIs with Actuator health and metrics; the full trailing-stop state machine verified end-to-end with Testcontainers.",
+      "impact": "Redis Streams ingestion and Lua rule evaluation, Server-Sent Events for live alerts, and PostgreSQL alert history. Docker supports the local stack; Testcontainers integration tests verify Redis state transitions.",
       "tech": [
         "Java 17",
         "Spring Boot",
@@ -210,14 +214,14 @@
         "Docker",
         "Testcontainers"
       ],
-      "link": "https://github.com/iprajwalsingh7"
+      "link": "https://github.com/iprajwalsingh7/tickpulse"
     },
     {
       "name": "Cooked",
       "kind": "Personal · Applied AI",
       "period": "Sep — Dec 2025",
-      "summary": "Backend aggregation service pulling user data from Spotify, GitHub, and Reddit over OAuth 2.0, then generating structured personas through an engineered prompt workflow.",
-      "impact": "Three third-party APIs behind one REST surface with rate-limit safeguards and hardened error handling; LLM output parsed deterministically into a typed persona schema rather than free text.",
+      "summary": "Java/Spring Boot service combining GitHub, Reddit and Spotify data with Gemini-generated responses.",
+      "impact": "Implemented Spotify OAuth 2.0 token exchange, third-party API error handling and JSON parsing to bring profile data and LLM responses behind one backend service.",
       "tech": [
         "Java",
         "Spring Boot",
@@ -226,7 +230,7 @@
         "REST APIs",
         "Prompt engineering"
       ],
-      "link": "https://github.com/iprajwalsingh7"
+      "link": "https://github.com/iprajwalsingh7/cooked-v2-spring"
     }
   ],
   "stack": [
@@ -238,18 +242,28 @@
         "Spring WebFlux",
         "Spring Data JPA",
         "REST APIs",
-        "Microservices"
+        "OAuth 2.0"
+      ]
+    },
+    {
+      "name": "Applied AI",
+      "items": [
+        "LLM API integration",
+        "Structured outputs",
+        "Gemini API",
+        "Prompt workflows",
+        "Server-side validation",
+        "Python & ML — learning"
       ]
     },
     {
       "name": "Data & Messaging",
       "items": [
+        "Redis",
         "Redis Streams",
         "Redis Lua",
-        "Redis Pub/Sub",
-        "Kafka",
-        "Elasticsearch",
-        "InfluxDB"
+        "Apache Kafka",
+        "Elasticsearch"
       ]
     },
     {
@@ -257,52 +271,38 @@
       "items": [
         "PostgreSQL",
         "MySQL",
-        "MongoDB",
-        "Cassandra"
-      ]
-    },
-    {
-      "name": "Applied AI",
-      "items": [
-        "LLM API integration",
-        "Prompt engineering",
-        "Structured output parsing",
-        "Gemini API",
-        "AI agents"
+        "MongoDB"
       ]
     },
     {
       "name": "Languages",
       "items": [
         "Java",
+        "Python",
         "SQL",
         "Lua",
-        "Python",
-        "C",
-        "C++"
+        "Go"
       ]
     },
     {
       "name": "Tooling",
       "items": [
         "Docker",
-        "Testcontainers",
         "Git",
-        "AWS",
-        "JMeter",
+        "Maven",
+        "Linux",
         "Postman",
-        "IntelliJ IDEA"
+        "Testcontainers"
       ]
     },
     {
       "name": "Concepts",
       "items": [
-        "Event-driven architecture",
         "Concurrency",
-        "Caching strategies",
-        "OAuth 2.0",
-        "Generative AI",
-        "DS & Algorithms"
+        "Idempotency",
+        "Event-driven architecture",
+        "Distributed systems",
+        "Configuration drift checks"
       ]
     }
   ],
@@ -327,7 +327,7 @@
       "Let's talk",
       "systems"
     ],
-    "note": "Open to backend and platform roles. Fastest way to reach me is email — the form below lands in the same inbox.",
+    "note": "Open to backend, AI backend, and LLM application engineering roles. Email is the fastest way to reach me.",
     "reach": [
       {
         "label": "Email",
@@ -357,3 +357,4 @@
     ]
   }
 }
+
