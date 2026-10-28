@@ -1334,10 +1334,13 @@ body { background: var(--ink); }
 .footer { border-color: #aeb799; color: #515a43; }
 @media (min-width: 1700px) { .hero__stage { min-height: 650px; } }
 @media (max-width: 900px) {
-  .hero__stage { min-height: 500px; }
+  /* Keep every hero element in flow: text growth cannot collide with the art. */
+  .hero { min-height: auto; }
+  .hero__stage { min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 45px 30px; }
   .hero__title { font-size: 17vw; }
-  .sculpture { width: 65%; right: -10%; }
-  .hero__side { bottom: 30px; font-size: 12px; }
+  .sculpture { position: relative; inset: auto; transform: none; width: min(75%, 440px); justify-self: center; margin-block: 12px 20px; }
+  .hero__side { position: static; font-size: 12px; }
+  .sculpture__label { display: none; }
   .hero__bottom { grid-template-columns: 1fr 1.5fr; }
   .hero__index { display: none; }
   .statement__lines { margin-left: 20%; }
@@ -1353,17 +1356,17 @@ body { background: var(--ink); }
   .top-nav { gap: 16px; font-size: 11px; }
   .top-nav a:last-child { display: none; }
   .header-contact { font-size: 11px; padding: 8px 12px; gap: 12px; }
-  .hero { min-height: 850px; padding-top: 110px; }
+  .hero { min-height: auto; padding-top: 100px; }
   .hero__overline { font-size: 8px; gap: 20px; }
   .hero__overline span:last-child { max-width: 95px; text-align: right; }
-  .hero__stage { min-height: 510px; align-items: flex-start; padding-top: 60px; }
+  .hero__stage { min-height: 0; gap: 20px; padding-block: 34px 28px; }
   .hero__title { font-size: 22vw; }
   .hero__title > span { margin-left: 5vw; }
-  .sculpture { top: 61%; width: 85%; right: -8%; }
+  .sculpture { inset: auto; width: min(84%, 320px); transform: none; margin-block: 8px 20px; }
   .sculpture__core { font-size: 38px; }
   .sculpture__label { display: none; }
   .sculpture__ring { border-width: 18px; transform: translateZ(calc((var(--ring) - 9) * 4px)) scale(calc(1 - (var(--ring) - 9) * (var(--ring) - 9) * .0038)); }
-  .hero__side { left: 0; right: auto; bottom: 15px; }
+  .hero__side { position: static; }
   .hero__bottom { grid-template-columns: 1fr; gap: 25px; }
   .hero__bottom > p { font-size: 12px; }
   .section { padding-block: 70px; }
