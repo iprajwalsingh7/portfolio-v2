@@ -11,8 +11,7 @@
  *   3. reveal    — IntersectionObserver reveals and stat counters
  *   4. marquee   — pause when offscreen
  *   5. contact   — form interception
- *   6. canvas    — decorative, deferred to idle
- *   7. views     — network call, deferred to idle
+ *   6. views     — network call, deferred to idle
  *
  * Each initialiser is independent and individually guarded, so one failing
  * never takes the rest of the page with it.
@@ -23,7 +22,6 @@ import { initStatement } from './modules/statement';
 import { initReveal } from './modules/reveal';
 import { initMarquee } from './modules/marquee';
 import { initContact } from './modules/contact';
-import { initHeroCanvas } from './modules/hero-canvas';
 import { initViews } from './modules/views';
 import { probeApi } from './modules/api-probe';
 import { whenIdle, prefersReducedMotion } from './env';
@@ -55,7 +53,6 @@ function boot(): void {
   // callback cannot fire after shutdown and run the deferred work a second time.
   teardowns.push(
     whenIdle(() => {
-      safely('hero-canvas', initHeroCanvas);
       // Swaps the contact form for an email button on a backend-less deploy.
       void probeApi().catch(() => {});
       void initViews().catch(() => {});

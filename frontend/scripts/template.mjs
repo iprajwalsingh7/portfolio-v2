@@ -46,29 +46,22 @@ const eyebrow = (index, label) =>
   `<p class="eyebrow">${e(index)} — ${e(label)}</p>`;
 
 function heroBlock(c) {
-  const lines = c.hero.lines
-    .map(
-      (l, i) =>
-        `<span class="hero__line${l.tone === 'dim' ? ' hero__line--dim' : ''}" style="--i:${i}">${e(l.text)}${
-          l.period ? '<span class="hero__period">.</span>' : ''
-        }</span>`
-    )
-    .join('\n        ');
-
   return `
   <section class="hero" id="top">
-    <canvas class="hero__canvas" aria-hidden="true" data-hero-canvas></canvas>
-    <div class="hero__veil" aria-hidden="true"></div>
-    <div class="hero__inner">
-      <h1 class="u-sr">${e(c.meta.name)} — ${e(c.meta.role)}, ${e(c.meta.domain)}. ${e(
-        c.hero.lines.map((l) => l.text).join(' ')
-      )}.</h1>
-      <div aria-hidden="true">
-        ${lines}
+    <div class="hero__overline"><span>Independent mind. Connected systems.</span><span>${e(c.meta.location)} / ${e(c.meta.year)}</span></div>
+    <div class="hero__stage">
+      <h1 class="hero__title">Prajwal<span>Singh<span class="name-dot">®</span></span></h1>
+      <div class="sculpture" aria-hidden="true" data-sculpture>
+        <div class="sculpture__shadow"></div>
+        <div class="sculpture__body">${Array.from({length: 19}, (_,i) => `<i class="sculpture__ring" style="--ring:${i}"></i>`).join('')}<span class="sculpture__core">ps.</span></div>
+        <span class="sculpture__label">SYSTEMS, IN A STATE OF FLOW</span>
       </div>
-      <div class="hero__foot" style="--i:3">
-        <p class="hero__lede">${e(c.hero.lede)}</p>
-      </div>
+      <p class="hero__side">Backend engineering.<br>Applied intelligence.<br>A little obsession.</p>
+    </div>
+    <div class="hero__bottom">
+      <a class="round-link" href="#projects">Explore my work <span>${icons.arrowDown}</span></a>
+      <p>${e(c.hero.lede)}</p>
+      <span class="hero__index">PORTFOLIO — VOL. 02</span>
     </div>
   </section>`;
 }
@@ -110,6 +103,7 @@ function statementBlock(c, s) {
   return `
   <section class="section statement shell" id="${e(s.id)}" data-section aria-labelledby="lbl-${e(s.id)}">
     ${eyebrow(s.index, s.label).replace('class="eyebrow"', `class="eyebrow" id="lbl-${e(s.id)}"`)}
+    <h2 class="section-display">Under the surface.<br><em>Behind the experience.</em></h2>
     <div class="statement__lines" data-reveal-stagger>
       ${lines}
     </div>
@@ -149,7 +143,7 @@ function experienceBlock(c, s) {
     <div class="split">
       <div class="split__aside">
         ${eyebrow(s.index, s.label)}
-        <h2 class="split__title" id="lbl-${e(s.id)}">${c.experience.heading.map(e).join('<br>')}</h2>
+        <h2 class="split__title" id="lbl-${e(s.id)}">Built in the<br>real world.</h2>
         <p class="split__blurb">${e(c.experience.blurb)}</p>
       </div>
       <div>${roles}
@@ -163,6 +157,11 @@ function projectsBlock(c, s) {
     .map(
       (p) => `
       <article class="project" data-reveal>
+        <div class="project__visual ${p.name === 'TickPulse' ? 'project__visual--pulse' : 'project__visual--ai'}" aria-hidden="true">
+          <span class="visual__label">${p.name === 'TickPulse' ? 'EVENT-DRIVEN / REAL-TIME SYSTEMS' : 'CONNECTED DATA / APPLIED AI'}</span>
+          ${p.name === 'TickPulse' ? `<svg class="pulse-art" viewBox="0 0 800 300" fill="none"><path d="M0 160H170L210 140L240 180L280 60L320 250L355 115L390 160H460L490 130L520 175L550 110L580 160H800" stroke="currentColor" stroke-width="2"/><circle cx="390" cy="160" r="70" stroke="currentColor" opacity=".2"/><circle cx="390" cy="160" r="120" stroke="currentColor" opacity=".15"/></svg><strong>Tick<span>Pulse</span></strong>` : `<div class="ai-orbit"><i></i><i></i><i></i><b>c.</b></div><strong>Cooked<span> / AI</span></strong>`}
+          <span class="visual__bottom">${p.name === 'TickPulse' ? 'TICKS → STREAMS → SIGNALS' : 'GITHUB + REDDIT + SPOTIFY → GEMINI'}</span>
+        </div>
         <div>
           <h3 class="project__name">${e(p.name)}</h3>
           <p class="project__kind">${e(p.kind)}${p.period ? ` · ${e(p.period)}` : ''}</p>
@@ -187,6 +186,7 @@ function projectsBlock(c, s) {
   return `
   <section class="section section--deferred shell" id="${e(s.id)}" data-section aria-labelledby="lbl-${e(s.id)}">
     ${eyebrow(s.index, s.label).replace('class="eyebrow"', `class="eyebrow" id="lbl-${e(s.id)}"`)}
+    <h2 class="section-display">Ideas, made<br><em>executable.</em></h2>
     <div>${items}
     </div>
     <hr class="rule">
@@ -207,6 +207,7 @@ function stackBlock(c, s) {
   return `
   <section class="section section--deferred shell" id="${e(s.id)}" data-section aria-labelledby="lbl-${e(s.id)}">
     ${eyebrow(s.index, s.label).replace('class="eyebrow"', `class="eyebrow" id="lbl-${e(s.id)}"`)}
+    <h2 class="section-display">The right tools.<br><em>For the hard parts.</em></h2>
     <div>${rows}
     </div>
     <hr class="rule">
@@ -321,7 +322,7 @@ function contactBlock(c, s) {
     <footer class="footer">
       <span>© ${e(c.meta.year)} ${e(c.meta.name)}</span>
       <span class="footer__views" data-views hidden></span>
-      <span>${e(c.meta.location)}</span>
+      <span>${e(c.meta.location)} <span class="footer__progress"><span data-progress-pct>000</span> / 100</span></span>
     </footer>
   </section>`;
 }
@@ -350,15 +351,6 @@ export function renderDocument({ content: c, css, entry }) {
     )
     .join('');
 
-  const chromeSocials = c.socials
-    .map(
-      (s) =>
-        `<a class="icon-btn" href="${e(s.href)}"${
-          s.href.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''
-        } aria-label="${e(s.label)}">${icons[s.id] ?? ''}</a>`
-    )
-    .join('\n    ');
-
   // Structured data: cheap, and the reference audit flagged its absence.
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
@@ -381,7 +373,7 @@ export function renderDocument({ content: c, css, entry }) {
 <title>${e(c.meta.title)}</title>
 <meta name="description" content="${e(c.meta.description)}">
 <meta name="author" content="${e(c.meta.name)}">
-<meta name="theme-color" content="#0b0b0c">
+<meta name="theme-color" content="#f3f1eb">
 <link rel="canonical" href="${e(c.meta.siteUrl)}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -419,18 +411,12 @@ setTimeout(function(){if(!window.__portfolioBooted)r.classList.add('no-js')},400
 
 <div class="progress" data-progress aria-hidden="true"></div>
 
-<p class="chrome chrome--tl">${e(c.meta.name)}</p>
-<p class="chrome chrome--tr">${e(c.meta.tagline)}</p>
-
-<nav class="chrome chrome--bl" aria-label="Social links">
-    ${chromeSocials}
-</nav>
-
-<p class="chrome chrome--br"><span data-progress-pct>000</span> / 100</p>
-
-<nav class="rail" aria-label="Sections">${rail}
-</nav>
-
+<header class="site-header">
+  <a class="wordmark" href="#top" aria-label="Prajwal Singh, home">ps<span>✳</span></a>
+  <nav class="top-nav" aria-label="Main navigation"><a href="#work">About</a><a href="#projects">Work</a><a href="#experience">Experience</a></nav>
+  <a class="header-contact" href="#contact">Let's talk <span>↗</span></a>
+</header>
+<nav class="rail" aria-label="Sections">${rail}</nav>
 <main id="main" tabindex="-1">
 ${heroBlock(c)}
 ${marqueeBlock(c)}

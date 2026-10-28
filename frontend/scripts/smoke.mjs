@@ -336,9 +336,8 @@ const litValues = [...liveDoc.querySelectorAll('[data-statement]')]
 check('statement lines receive a --lit value', litValues.every((v) => v !== ''),
   JSON.stringify(litValues));
 
-// The hero canvas must survive a restart. It used to be removed from the DOM, so a
-// reduced-motion toggle destroyed it permanently.
-check('hero canvas is still in the dom', !!liveDoc.querySelector('[data-hero-canvas]'));
+// The decorative sculpture must remain available without a canvas runtime.
+check('hero sculpture is present and decorative', liveDoc.querySelector('[data-sculpture]')?.getAttribute('aria-hidden') === 'true');
 
 // A throwing subscriber must not kill the shared frame loop — it drives Lenis, and
 // Lenis preventDefaults wheel events, so a dead loop freezes wheel scrolling.
