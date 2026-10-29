@@ -1268,10 +1268,10 @@ body { background: var(--ink); }
 .round-link svg { width: 16px; }
 .round-link:hover span { background: #e0ded1; transform: translateY(4px); }
 .sculpture { position: absolute; width: 52%; aspect-ratio: 1; right: -2%; top: 50%; transform: translateY(-49%); perspective: 1000px; z-index: 1; }
-.sculpture__body { position: absolute; inset: 10%; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(-28deg) rotateZ(-27deg); animation: sculpture-turn 18s ease-in-out infinite alternate; }
-.sculpture__ring { position: absolute; inset: 0; border-radius: 50%; border: clamp(12px, 2.3vw, 38px) solid transparent; background: linear-gradient(120deg,#ffc09a 0%,#c66a43 24%,#a13f1e 48%,#e28b5b 68%,#6c2c16 90%) border-box; mask: radial-gradient(transparent 48%,#000 49%); transform: translateZ(calc((var(--ring) - 9) * 7px)) scale(calc(1 - (var(--ring) - 9) * (var(--ring) - 9) * .0038)); box-shadow: inset 0 0 8px #69381f, 0 0 1px #522513; }
+.sculpture__body { position: absolute; inset: 10%; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(-28deg) rotateZ(-27deg); animation: sculpture-turn 24s ease-in-out infinite alternate; will-change: transform; }
+.sculpture__ring { position: absolute; inset: 0; border-radius: 50%; border: clamp(12px, 2.3vw, 38px) solid transparent; background: linear-gradient(120deg,#ffc09a 0%,#c66a43 24%,#a13f1e 48%,#e28b5b 68%,#6c2c16 90%) border-box; mask: radial-gradient(transparent 48%,#000 49%); transform: translateZ(calc((var(--ring) - 9) * 7px)) scale(calc(1 - (var(--ring) - 9) * (var(--ring) - 9) * .0038));  }
 .sculpture__core { position: absolute; inset: 36%; display: grid; place-items: center; border-radius: 50%; background: #382b21; color: #efc69f; font-size: 60px; font-weight: 600; letter-spacing: -.08em; transform: translateZ(20px); box-shadow: inset 0 0 20px #0d0d09; }
-.sculpture__shadow { position: absolute; left: 16%; right: 10%; bottom: 0; height: 12%; border-radius: 50%; background: #5b432b3d; filter: blur(22px); }
+.sculpture__shadow { position: absolute; left: 16%; right: 10%; bottom: 0; height: 12%; border-radius: 50%; background: radial-gradient(ellipse, #5b432b35, #5b432b00 70%); }
 .sculpture__label { position: absolute; right: 8%; top: 5%; font: 8px var(--mono); letter-spacing: .12em; writing-mode: vertical-rl; }
 @keyframes sculpture-turn { from { transform: rotateX(-24deg) rotateY(-28deg) rotateZ(-27deg); } to { transform: rotateX(20deg) rotateY(32deg) rotateZ(-12deg); } }
 .marquee { padding: 25px 0; margin: 0; border-block: 1px solid var(--line); background: #e7e7dd; }
@@ -1390,3 +1390,7 @@ body { background: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .sculpture__body { animation: none; } }
 .footer__progress { display: inline-block; margin-left: 25px; }
 @media (max-width: 600px) { .footer__progress { display: block; margin-left: 0; margin-top: 8px; } }
+
+.sculpture.is-paused .sculpture__body { animation-play-state: paused; will-change: auto; }
+
+.project__links { display: flex; flex-wrap: wrap; gap: 12px 24px; }

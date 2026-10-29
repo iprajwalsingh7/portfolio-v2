@@ -28,7 +28,7 @@
         "period": true
       }
     ],
-    "lede": "Backend engineer at Option Circle, building production trading systems and LLM-powered workflows — from natural-language bot creation to trailing stops and tiered exits."
+    "lede": "I build reliable backend systems and practical AI applications, turning complex problems into software that is clear, useful, and built to last."
   },
   "socials": [
     {
@@ -214,7 +214,9 @@
         "Docker",
         "Testcontainers"
       ],
-      "link": "https://github.com/iprajwalsingh7/tickpulse"
+      "link": "https://github.com/iprajwalsingh7/tickpulse",
+      "liveUrl": "https://tickpulse.onrender.com/api/ticks/BTCUSDT/latest",
+      "liveLabel": "Latest BTC tick"
     },
     {
       "name": "Cooked",
@@ -230,7 +232,8 @@
         "REST APIs",
         "Prompt engineering"
       ],
-      "link": "https://github.com/iprajwalsingh7/cooked-v2-spring"
+      "link": "https://github.com/iprajwalsingh7/cooked-v2-spring",
+      "liveUrl": "https://cooked-v2.vercel.app"
     }
   ],
   "stack": [

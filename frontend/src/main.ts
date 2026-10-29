@@ -17,6 +17,7 @@
  * never takes the rest of the page with it.
  */
 
+import { initSculpture } from './modules/sculpture';
 import { initScroll } from './modules/scroll';
 import { initStatement } from './modules/statement';
 import { initReveal } from './modules/reveal';
@@ -47,6 +48,7 @@ function boot(): void {
   safely('statement', initStatement);
   safely('reveal', initReveal);
   safely('marquee', initMarquee);
+  safely('sculpture', initSculpture);
   safely('contact', initContact);
 
   // whenIdle returns a cancel function; register it as a teardown so a pending

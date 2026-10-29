@@ -338,6 +338,19 @@ check('statement lines receive a --lit value', litValues.every((v) => v !== ''),
 
 // The decorative sculpture must remain available without a canvas runtime.
 check('hero sculpture is present and decorative', liveDoc.querySelector('[data-sculpture]')?.getAttribute('aria-hidden') === 'true');
+const sculpture = liveDoc.querySelector('[data-sculpture]');
+const sculptureObserver = observers.intersection.find((o) => o.targets.includes(sculpture));
+sculptureObserver?.cb([{ target: sculpture, isIntersecting: false }]);
+check('sculpture pauses outside the viewport', sculpture?.classList.contains('is-paused'));
+sculptureObserver?.cb([{ target: sculpture, isIntersecting: true }]);
+check('sculpture resumes when visible', !sculpture?.classList.contains('is-paused'));
+Object.defineProperty(window.document, 'hidden', { configurable: true, value: true });
+window.document.dispatchEvent(new window.Event('visibilitychange'));
+check('sculpture pauses in a hidden tab', sculpture?.classList.contains('is-paused'));
+Object.defineProperty(window.document, 'hidden', { configurable: true, value: false });
+window.document.dispatchEvent(new window.Event('visibilitychange'));
+check('sculpture resumes when the tab returns', !sculpture?.classList.contains('is-paused'));
+
 
 // A throwing subscriber must not kill the shared frame loop — it drives Lenis, and
 // Lenis preventDefaults wheel events, so a dead loop freezes wheel scrolling.

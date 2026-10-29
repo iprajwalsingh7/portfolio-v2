@@ -38,6 +38,7 @@ export function initScroll(): ScrollController {
   const bar = document.querySelector<HTMLElement>('[data-progress]');
   const pct = document.querySelector<HTMLElement>('[data-progress-pct]');
   let lastPct = -1;
+  let lastProgress = "";
 
   // -- section rail ----------------------------------------------------------
   const railItems = new Map<string, HTMLElement>();
@@ -67,7 +68,11 @@ export function initScroll(): ScrollController {
   function paint(scroll: number, limit: number): void {
     const p = limit > 0 ? Math.min(Math.max(scroll / limit, 0), 1) : 0;
 
-    if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
+    const progress = p.toFixed(4);
+    if (bar && progress !== lastProgress) {
+      bar.style.transform = `scaleX(${progress})`;
+      lastProgress = progress;
+    }
 
     const whole = Math.round(p * 100);
     if (whole !== lastPct) {

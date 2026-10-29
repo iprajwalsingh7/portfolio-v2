@@ -53,7 +53,7 @@ function heroBlock(c) {
       <h1 class="hero__title">Prajwal<span>Singh<span class="name-dot">®</span></span></h1>
       <div class="sculpture" aria-hidden="true" data-sculpture>
         <div class="sculpture__shadow"></div>
-        <div class="sculpture__body">${Array.from({length: 19}, (_,i) => `<i class="sculpture__ring" style="--ring:${i}"></i>`).join('')}<span class="sculpture__core">ps.</span></div>
+        <div class="sculpture__body">${Array.from({length: 13}, (_,i) => `<i class="sculpture__ring" style="--ring:${i * 1.5}"></i>`).join('')}<span class="sculpture__core">ps.</span></div>
         <span class="sculpture__label">SYSTEMS, IN A STATE OF FLOW</span>
       </div>
       <p class="hero__side">Backend engineering.<br>Applied intelligence.<br>A little obsession.</p>
@@ -61,7 +61,7 @@ function heroBlock(c) {
     <div class="hero__bottom">
       <a class="round-link" href="#projects">Explore my work <span>${icons.arrowDown}</span></a>
       <p>${e(c.hero.lede)}</p>
-      <span class="hero__index">PORTFOLIO — VOL. 02</span>
+      <span class="hero__index">BACKEND SYSTEMS & APPLIED AI</span>
     </div>
   </section>`;
 }
@@ -165,11 +165,14 @@ function projectsBlock(c, s) {
         <div>
           <h3 class="project__name">${e(p.name)}</h3>
           <p class="project__kind">${e(p.kind)}${p.period ? ` · ${e(p.period)}` : ''}</p>
+          <div class="project__links">
+          ${p.liveUrl ? `<a class="link-out" href="${e(p.liveUrl)}" target="_blank" rel="noopener noreferrer">${e(p.liveLabel ?? 'Live demo')} ${icons.arrowOut}<span class="u-sr"> (opens in a new tab)</span></a>` : ''}
           ${
             p.link
               ? `<a class="link-out" href="${e(p.link)}" target="_blank" rel="noopener noreferrer">Source ${icons.arrowOut}<span class="u-sr"> (opens in a new tab)</span></a>`
               : ''
           }
+          </div>
         </div>
         <div>
           <p class="project__summary">${e(p.summary)}</p>
