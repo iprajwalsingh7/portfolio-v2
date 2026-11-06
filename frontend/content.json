@@ -63,12 +63,12 @@
     "Redis Streams",
     "Kafka",
     "PostgreSQL",
-    "Gemini API",
-    "Structured Outputs",
     "Spring WebFlux",
     "Docker",
     "Python",
-    "Testcontainers"
+    "Testcontainers",
+    "FastAPI",
+    "Semantic search"
   ],
   "sections": [
     {
@@ -112,7 +112,7 @@
       "tone": "dim"
     },
     {
-      "text": "Natural language becomes validated, runnable bots. I'm also developing my Python and machine learning skills to build reliable AI applications.",
+      "text": "I build AI tools that work with source material. In Margin, readers can open the passage behind an answer and check it against their book.",
       "tone": "dim"
     }
   ],
@@ -198,6 +198,21 @@
   },
   "projects": [
     {
+      "name": "Margin",
+      "kind": "Personal · Retrieval augmented generation",
+      "summary": "Ask questions about a PDF, EPUB, or text book and follow each answer back to the relevant page or section. Scanned pages are read with local OCR.",
+      "impact": "Built a book-specific search index with local embeddings. Gemini streams answers from the retrieved passages, and the service checks source IDs and quotations before marking an answer complete.",
+      "tech": [
+        "Python",
+        "FastAPI",
+        "FastEmbed",
+        "RapidOCR",
+        "ONNX Runtime",
+        "pytest"
+      ],
+      "link": "https://github.com/iprajwalsingh7/margin-book-chat"
+    },
+    {
       "name": "TickPulse",
       "kind": "Personal · Real-time",
       "period": "Jul 2026",
@@ -228,7 +243,6 @@
         "Java",
         "Spring Boot",
         "OAuth 2.0",
-        "Gemini API",
         "REST APIs",
         "Prompt engineering"
       ],
@@ -245,18 +259,21 @@
         "Spring WebFlux",
         "Spring Data JPA",
         "REST APIs",
-        "OAuth 2.0"
+        "OAuth 2.0",
+        "FastAPI"
       ]
     },
     {
       "name": "Applied AI",
       "items": [
         "LLM API integration",
-        "Structured outputs",
-        "Gemini API",
         "Prompt workflows",
         "Server-side validation",
-        "Python & ML — learning"
+        "Retrieval augmented generation (RAG)",
+        "Semantic search",
+        "FastEmbed",
+        "RapidOCR",
+        "ONNX Runtime"
       ]
     },
     {
@@ -295,7 +312,9 @@
         "Maven",
         "Linux",
         "Postman",
-        "Testcontainers"
+        "Testcontainers",
+        "uv",
+        "pytest"
       ]
     },
     {
@@ -360,4 +379,3 @@
     ]
   }
 }
-

@@ -1394,3 +1394,19 @@ body { background: var(--ink); }
 .sculpture.is-paused .sculpture__body { animation-play-state: paused; will-change: auto; }
 
 .project__links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+
+.project__visual--margin { background: #cdc4cf; color: #393240; }
+.project__visual--margin strong { align-self: flex-start; }
+.margin-art { position: absolute; right: 2%; top: 9%; width: 52%; height: 82%; }
+@media (max-width: 600px) {
+  .margin-art { top: 14%; right: 0; width: 70%; height: 55%; }
+  .project__visual--margin strong { margin-top: auto; margin-bottom: 12px; }
+}
+.hero__captions { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 16px 28px; }
+.hero__captions .sculpture__label { position: static; display: block; writing-mode: horizontal-tb; text-transform: uppercase; }
+.hero__captions .hero__side { position: static; }
+@media (min-width: 901px) {
+  .hero__stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px 3vw; padding-block: 24px; min-height: auto; }
+  .hero__stage .sculpture { position: relative; inset: auto; transform: none; width: min(100%, 58svh); justify-self: center; }
+  .hero__captions { grid-column: 1 / -1; }
+}

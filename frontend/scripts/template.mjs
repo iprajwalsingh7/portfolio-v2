@@ -54,9 +54,11 @@ function heroBlock(c) {
       <div class="sculpture" aria-hidden="true" data-sculpture>
         <div class="sculpture__shadow"></div>
         <div class="sculpture__body">${Array.from({length: 13}, (_,i) => `<i class="sculpture__ring" style="--ring:${i * 1.5}"></i>`).join('')}<span class="sculpture__core">ps.</span></div>
-        <span class="sculpture__label">SYSTEMS, IN A STATE OF FLOW</span>
       </div>
-      <p class="hero__side">Backend engineering.<br>Applied intelligence.<br>A little obsession.</p>
+      <div class="hero__captions">
+        <span class="sculpture__label">Systems, in a state of flow</span>
+        <p class="hero__side">Backend engineering.<br>Applied intelligence.<br>A little obsession.</p>
+      </div>
     </div>
     <div class="hero__bottom">
       <a class="round-link" href="#projects">Explore my work <span>${icons.arrowDown}</span></a>
@@ -157,11 +159,27 @@ function projectsBlock(c, s) {
     .map(
       (p) => `
       <article class="project" data-reveal>
-        <div class="project__visual ${p.name === 'TickPulse' ? 'project__visual--pulse' : 'project__visual--ai'}" aria-hidden="true">
+        ${p.name === 'Margin' ? `<div class="project__visual project__visual--margin" aria-hidden="true">
+          <span class="visual__label">BOOK SEARCH / APPLIED AI</span>
+          <strong>Margin</strong>
+          <svg class="margin-art" viewBox="0 0 440 300" fill="none" focusable="false">
+            <g transform="rotate(-12 220 150) skewX(-6)" stroke-linejoin="round">
+              <path d="M56 84Q136 64 211 108Q290 77 373 96L365 240Q280 218 203 254Q130 209 48 230Z" fill="#454251"/>
+              <path d="M64 70Q136 53 212 99Q282 66 365 82L359 226Q275 209 204 244Q132 199 57 215Z" fill="#d5ccbd" stroke="#655e68" stroke-width="2"/>
+              <path d="M70 59Q146 47 214 92L206 231Q135 189 63 200Z" fill="#fff2d9"/>
+              <path d="M214 92Q284 54 363 70L355 207Q274 192 206 231Z" fill="#eee1c9"/>
+              <path d="M91 91Q142 87 185 113M89 109Q139 104 182 130M86 145Q132 141 178 166M239 106Q278 88 332 90M235 157Q278 138 322 144" stroke="#978d85" stroke-width="4" stroke-linecap="round"/>
+              <path d="M235 121Q283 101 339 105L338 122Q281 119 234 139Z" fill="#ed925d"/>
+              <path d="M303 60L323 61L319 104L309 96L299 104Z" fill="#78516b"/>
+              <path d="M337 114H379L398 92" stroke="#834a30" stroke-width="2"/><circle cx="400" cy="90" r="5" fill="#834a30"/>
+            </g>
+          </svg>
+          <span class="visual__bottom">PASSAGE SEARCH / SOURCE CITATIONS</span>
+        </div>` : `<div class="project__visual ${p.name === 'TickPulse' ? 'project__visual--pulse' : 'project__visual--ai'}" aria-hidden="true">
           <span class="visual__label">${p.name === 'TickPulse' ? 'EVENT-DRIVEN / REAL-TIME SYSTEMS' : 'CONNECTED DATA / APPLIED AI'}</span>
           ${p.name === 'TickPulse' ? `<svg class="pulse-art" viewBox="0 0 800 300" fill="none"><path d="M0 160H170L210 140L240 180L280 60L320 250L355 115L390 160H460L490 130L520 175L550 110L580 160H800" stroke="currentColor" stroke-width="2"/><circle cx="390" cy="160" r="70" stroke="currentColor" opacity=".2"/><circle cx="390" cy="160" r="120" stroke="currentColor" opacity=".15"/></svg><strong>Tick<span>Pulse</span></strong>` : `<div class="ai-orbit"><i></i><i></i><i></i><b>c.</b></div><strong>Cooked<span> / AI</span></strong>`}
           <span class="visual__bottom">${p.name === 'TickPulse' ? 'TICKS → STREAMS → SIGNALS' : 'GITHUB + REDDIT + SPOTIFY → GEMINI'}</span>
-        </div>
+        </div>`}
         <div>
           <h3 class="project__name">${e(p.name)}</h3>
           <p class="project__kind">${e(p.kind)}${p.period ? ` · ${e(p.period)}` : ''}</p>
