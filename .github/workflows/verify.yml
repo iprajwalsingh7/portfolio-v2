@@ -57,11 +57,21 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+          
       - run: npm ci && npm run build
         working-directory: frontend
 
+      # Pre-pull the Postgres image directly via the host Docker daemon to bypass 
+      # Testcontainers' pre-flight rate limit checks.
+      - name: Pre-pull Postgres image
+        run: docker pull postgres:16-alpine
+
       - run: mvn -B verify
         working-directory: backend
+        # Disabling Ryuk avoids a secondary rate limit failure on the testcontainers/ryuk image.
+        # (Ryuk cleans up orphaned containers, but GitHub Actions VMs are destroyed after the run anyway, making it unnecessary).
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: true
 
   docker:
     name: docker image builds
